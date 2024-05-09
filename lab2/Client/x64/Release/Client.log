@@ -1,0 +1,8 @@
+﻿  Client.cpp
+D:\VS_projects\Client\Client.cpp(34,39): warning C4267: аргумент: преобразование из "size_t" в "DWORD"; возможна потеря данных
+  Создание кода
+  2 of 9 functions (22.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  Client.vcxproj -> D:\VS_projects\win-driver\x64\Release\Client.exe
