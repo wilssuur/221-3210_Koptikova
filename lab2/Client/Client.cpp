@@ -4,46 +4,44 @@
 #define BUFFER_SIZE 1024
 
 void readFromFile(const char* fileName) {
-    HANDLE hFile = CreateFileA(fileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-    if (hFile == INVALID_HANDLE_VALUE) {
-        printf("Failed to open file for reading\n");
+    FILE* file;
+    fopen_s(&file, fileName, "r");
+    if (file == NULL) {
+        printf("Failed to open file for reading!\n");
         return;
     }
 
-    BYTE buffer[BUFFER_SIZE];
-    DWORD bytesRead;
+    unsigned char buffer[BUFFER_SIZE];
+    size_t bytesRead;
 
-    while (ReadFile(hFile, buffer, BUFFER_SIZE, &bytesRead, NULL) && bytesRead > 0) {
-        printf("%.*s", bytesRead, buffer);
+    while ((bytesRead = fread_s(buffer, BUFFER_SIZE, sizeof(buffer[0]), BUFFER_SIZE, file)) > 0) {
+        printf("%.*s", (int)bytesRead, buffer);
     }
 
-    CloseHandle(hFile);
+    fclose(file);
 }
 
 void writeToFile(const char* fileName, const char* data) {
-    HANDLE hFile = CreateFileA(fileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-    if (hFile == INVALID_HANDLE_VALUE) {
-        printf("Failed to open file for writing\n");
+    FILE* file;
+    fopen_s(&file, fileName, "w");
+    if (file == NULL) {
+        printf("Failed to open file for writing!\n");
         return;
     }
 
-    DWORD bytesWritten;
-
-    if (!WriteFile(hFile, data, strlen(data), &bytesWritten, NULL)) {
+    size_t bytesWritten = fwrite(data, sizeof(char), strlen(data), file);
+    if (bytesWritten != strlen(data)) {
         printf("Failed to write to file\n");
     }
 
-    CloseHandle(hFile);
+    fclose(file);
 }
 
 int main() {
     char fileName[] = "test.testlabextension";
-    char dataToWrite[] = "Lorem ipsum dolor sit ametconsectetur adipiscing eli Nulla nec elit at est commodo 1234567 a sia";
-    printf("Choose an operation:\n");
-    printf("1. Read from file\n");
-    printf("2. Write to file\n");
+    char dataToWrite[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ";
+    printf("1 for read and 2 for write:\n");
 
     int choice;
     scanf_s("%d", &choice);

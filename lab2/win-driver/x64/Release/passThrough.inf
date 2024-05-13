@@ -10,7 +10,7 @@ Signature   = "$Windows NT$"
 Class       = "ActivityMonitor"                         ;This is determined by the work this filter driver does
 ClassGuid   = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}    ;This value is determined by the Class
 Provider    = %ProviderString%
-DriverVer = 05/09/2024,14.26.8.791
+DriverVer = 05/10/2024,14.10.48.432
 CatalogFile = passthrough.cat
 
 
